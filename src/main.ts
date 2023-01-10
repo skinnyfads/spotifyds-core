@@ -1,3 +1,4 @@
+import getTrackInfo from "./getTrackInfo.js";
 import getTracksFromPlaylist from "./getTracksFromPlaylist.js";
 
 (async () => {
@@ -6,4 +7,10 @@ import getTracksFromPlaylist from "./getTracksFromPlaylist.js";
   const tracks = await getTracksFromPlaylist(url);
 
   console.log(tracks);
+  console.log("Get track info..");
+
+  tracks.forEach(async (track) => {
+    const trackInfo = await getTrackInfo(track.name, track.artist);
+    console.log(trackInfo);
+  });
 })();
