@@ -1,9 +1,16 @@
 {
-  "name": "spotifyds",
+  "name": "spotifyds-core",
+  "description": "A simple Spotify Music Downloader",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "license": "MIT",
   "type": "module",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skinnyfads/spotifyds-core.git"
+  },
+  "homepage": "https://github.com/skinnyfads/spotifyds-core#readme",
   "scripts": {
     "dev": "node --loader ts-node/esm ./src/main.ts",
     "start": "node ./dist/main.js",
