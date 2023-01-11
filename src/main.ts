@@ -1,3 +1,4 @@
+import downloadTrack from "./downloadTrack.js";
 import getTrackInfo from "./getTrackInfo.js";
 import getTracksFromPlaylist from "./getTracksFromPlaylist.js";
 
@@ -11,6 +12,13 @@ import getTracksFromPlaylist from "./getTracksFromPlaylist.js";
 
   tracks.forEach(async (track) => {
     const trackInfo = await getTrackInfo(track.name, track.artist);
-    console.log(trackInfo);
+
+    if (!trackInfo.youtubeId) {
+      console.log("Track not found");
+      return;
+    }
+    console.log("Trying to download" + trackInfo.name);
+    const path = await downloadTrack(trackInfo.name, trackInfo.youtubeId, "tracks");
+    console.log(path);
   });
 })();
