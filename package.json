@@ -1,7 +1,7 @@
 {
   "name": "spotifyds-core",
   "description": "A simple Spotify Music Downloader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
