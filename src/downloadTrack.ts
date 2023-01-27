@@ -1,9 +1,12 @@
+import EventEmitter from "node:events";
 import { existsSync, mkdirSync, createWriteStream } from "node:fs";
 import ytdl from "ytdl-core";
+import { IDownload } from "./interfaces.js";
 
-async function downloadTrack(name: string, youtubeId: string, dirname = "tracks"): Promise<string> {
+function downloadTrack(name: string, youtubeId: string, dirname = "tracks"): IDownload {
   const dir = process.cwd() + "/" + dirname;
   const fileName = name;
+  const download: IDownload = new EventEmitter();
 
   if (!existsSync(dir)) {
     mkdirSync(dir);
@@ -14,12 +17,12 @@ async function downloadTrack(name: string, youtubeId: string, dirname = "tracks"
   const file = ytdl(url, { filter: "audio" });
   const stream = file.pipe(createWriteStream(filePath, { flags: "a" }));
 
-  return new Promise((resolve, rejects) => {
-    stream.on("finish", () => {
-      resolve(filePath);
-    });
-    stream.on("error", rejects);
+  stream.on("finish", () => download.emit("finish", filePath));
+  stream.on("error", (error) => download.emit("error", error));
+  file.on("progress", function () {
+    download.emit("progress", ...arguments);
   });
+  return download;
 }
 
 export default downloadTrack;
