@@ -4,8 +4,6 @@ At this time you only be able to download songs from Spotify Playlist
 
 ## Usage
 
-Short Version
-
 ```ts
 import spotifyds from "spotifyds-core";
 
@@ -15,43 +13,16 @@ import spotifyds from "spotifyds-core";
 
   tracks.forEach(async (track) => {
     const trackInfo = await spotifyds.getTrackInfo(track.name, track.artist);
-    console.log(trackInfo);
+    const download = spotifyds.downloadTrack(track.name, trackInfo.youtubeId, "musics");
 
-    const path = await spotifyds.downloadTrack(track.name, trackInfo.youtubeId, "musics");
-    console.log(path);
+    download.on("progress", (chunkLength, downloaded, total) => {
+      console.log({ chunkLength, downloaded, total });
+    });
+    download.on("finish", (filePath) => {
+      console.log(filePath);
+    });
   });
 })();
-```
-
-Long Version
-
-```ts
-import spotifyds from "spotyfids-core";
-
-const { getTracksFromPlaylist, getTrackInfo, downloadTrack } = spotityds;
-
-const url = "https://open.spotify.com/playlist/12PkoUu4gMTFeTml6nf3ru";
-
-console.log("Fetching tracks..");
-
-const tracks = await getTracksFromPlaylist(url);
-console.log(tracks);
-
-tracks.forEach(async (track) => {
-  console.log(`Get ${track.name} detail info..`);
-
-  const trackInfo = await getTrackInfo(track.name, track.artist);
-  console.log(trackInfo);
-
-  if (!trackInfo.youtubeId) {
-    console.log(track.name + " not found");
-    return;
-  }
-  console.log(`Downloading ${track.name}..`);
-
-  const path = await downloadTrack(track.name, trackInfo.youtubeId);
-  console.log(path);
-});
 ```
 
 searchTrack
