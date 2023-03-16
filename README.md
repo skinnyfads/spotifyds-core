@@ -31,8 +31,9 @@ searchTrack
 import spotifyds from "spotyfids-core";
 
 (async () => {
-  const result = await spotifyds.searchTrack("she is gonna leave you");
-  console.log(result);
+  const results = await spotifyds.searchTrack("she is gonna leave you", 2);
+  const tracks = results.map((result) => result.item.data);
+  console.log(tracks);
 })();
 ```
 
@@ -101,46 +102,116 @@ spotifyds-core/tracks/Green Tea & Honey.mp3
 searchTrack
 
 ```ts
-{
-  __typename: "Track",
-  uri: "spotify:track:7KZOW7vBKDUPqvqXiPwoeK",
-  id: "7KZOW7vBKDUPqvqXiPwoeK",
-  name: "She's Gonna Leave You",
-  albumOfTrack: {
-    uri: "spotify:album:0PecAnEUSEp9vOUKh2h1HG",
+[
+  {
+    __typename: "Track",
+    uri: "spotify:track:7KZOW7vBKDUPqvqXiPwoeK",
+    id: "7KZOW7vBKDUPqvqXiPwoeK",
     name: "She's Gonna Leave You",
-    coverArt: {
-      sources: [
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e02154c7518b8e2aa6b63ef20ba",
-          width: 300,
-          height: 300,
+    albumOfTrack: {
+      uri: "spotify:album:0PecAnEUSEp9vOUKh2h1HG",
+      name: "She's Gonna Leave You",
+      coverArt: {
+        sources: [
+          {
+            url: "https://i.scdn.co/image/ab67616d00001e02154c7518b8e2aa6b63ef20ba",
+            width: 300,
+            height: 300,
+          },
+          {
+            url: "https://i.scdn.co/image/ab67616d00004851154c7518b8e2aa6b63ef20ba",
+            width: 64,
+            height: 64,
+          },
+          {
+            url: "https://i.scdn.co/image/ab67616d0000b273154c7518b8e2aa6b63ef20ba",
+            width: 640,
+            height: 640,
+          },
+        ],
+        extractedColors: {
+          colorDark: {
+            hex: "#008676",
+            isFallback: false,
+          },
         },
+      },
+      id: "0PecAnEUSEp9vOUKh2h1HG",
+    },
+    artists: {
+      items: [
         {
-          url: "https://i.scdn.co/image/ab67616d00004851154c7518b8e2aa6b63ef20ba",
-          width: 64,
-          height: 64,
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b273154c7518b8e2aa6b63ef20ba",
-          width: 640,
-          height: 640,
+          uri: "spotify:artist:027TpXKGwdXP7iwbjUSpV8",
+          profile: {
+            name: "The Walters",
+          },
         },
       ],
-      extractedColors: { colorDark: { hex: "#008676", isFallback: false } },
     },
-    id: "0PecAnEUSEp9vOUKh2h1HG",
+    contentRating: {
+      label: "NONE",
+    },
+    duration: {
+      totalMilliseconds: 220000,
+    },
+    playability: {
+      playable: true,
+    },
   },
-  artists: {
-    items: [
-      {
-        uri: "spotify:artist:027TpXKGwdXP7iwbjUSpV8",
-        profile: { name: "The Walters" },
+  {
+    __typename: "Track",
+    uri: "spotify:track:2Ap6ZjicxxcWvit5ZRYQxk",
+    id: "2Ap6ZjicxxcWvit5ZRYQxk",
+    name: "She's Gone",
+    albumOfTrack: {
+      uri: "spotify:album:5w6EjgZMLmZm7Z0EJJZ7PZ",
+      name: "Steelheart",
+      coverArt: {
+        sources: [
+          {
+            url: "https://i.scdn.co/image/ab67616d00001e0281c835e514e951482d7190fe",
+            width: 300,
+            height: 300,
+          },
+          {
+            url: "https://i.scdn.co/image/ab67616d0000485181c835e514e951482d7190fe",
+            width: 64,
+            height: 64,
+          },
+          {
+            url: "https://i.scdn.co/image/ab67616d0000b27381c835e514e951482d7190fe",
+            width: 640,
+            height: 640,
+          },
+        ],
+        extractedColors: {
+          colorDark: {
+            hex: "#A26868",
+            isFallback: false,
+          },
+        },
       },
-    ],
+      id: "5w6EjgZMLmZm7Z0EJJZ7PZ",
+    },
+    artists: {
+      items: [
+        {
+          uri: "spotify:artist:0ecbvwhuhiEAWOLHlRXpqD",
+          profile: {
+            name: "STEELHEART",
+          },
+        },
+      ],
+    },
+    contentRating: {
+      label: "NONE",
+    },
+    duration: {
+      totalMilliseconds: 392400,
+    },
+    playability: {
+      playable: true,
+    },
   },
-  contentRating: { label: "NONE" },
-  duration: { totalMilliseconds: 220000 },
-  playability: { playable: true },
-};
+];
 ```
