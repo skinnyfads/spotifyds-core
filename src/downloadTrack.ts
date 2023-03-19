@@ -1,28 +1,32 @@
-import EventEmitter from "node:events";
 import { existsSync, mkdirSync, createWriteStream } from "node:fs";
 import ytdl from "ytdl-core";
-import { IDownload } from "./interfaces.js";
+import getTrackInfo from "./getTrackInfo.js";
+import { Track } from "./interfaces/index.js";
 
-function downloadTrack(name: string, youtubeId: string, dirname = "tracks"): IDownload {
-  const dir = process.cwd() + "/" + dirname;
-  const fileName = name;
-  const download: IDownload = new EventEmitter();
+type ProgressCallback = (chunkLength: number, downloaded: number, total: number) => void;
 
-  if (!existsSync(dir)) {
-    mkdirSync(dir);
-  }
-  const baseUrl = "https://music.youtube.com/watch?v=";
-  const url = baseUrl + youtubeId;
-  const filePath = dir + "/" + fileName + ".mp3";
-  const file = ytdl(url, { filter: "audio" });
-  const stream = file.pipe(createWriteStream(filePath, { flags: "a" }));
+async function downloadTrack(track: Track, progressCallback?: ProgressCallback): Promise<string> {
+  return new Promise(async (resolve) => {
+    const dir = process.cwd() + "/" + "tracks";
+    const fileName = track.name;
 
-  stream.on("finish", () => download.emit("finish", filePath));
-  stream.on("error", (error) => download.emit("error", error));
-  file.on("progress", function () {
-    download.emit("progress", ...arguments);
+    if (!existsSync(dir)) {
+      mkdirSync(dir);
+    }
+    const trackName = track.name;
+    const trackArtist = track.artists.items.map((item) => item.profile.name);
+    const trackInfo = await getTrackInfo(trackName, trackArtist);
+    const baseUrl = "https://music.youtube.com/watch?v=";
+    const url = baseUrl + trackInfo.youtubeId;
+    const filePath = dir + "/" + fileName + ".mp3";
+    const file = ytdl(url, { filter: "audio" });
+    const stream = file.pipe(createWriteStream(filePath, { flags: "a" }));
+
+    if (progressCallback) {
+      file.on("progress", progressCallback);
+    }
+    stream.on("finish", () => resolve(filePath));
   });
-  return download;
 }
 
 export default downloadTrack;
