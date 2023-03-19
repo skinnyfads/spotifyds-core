@@ -1,6 +1,6 @@
 import axios from "axios";
 import getAccessToken from "./getAccessToken.js";
-import { ISearchTrackResponse } from "./interfaces.js";
+import { SearchResponse } from "./interfaces/search.js";
 
 async function searchTrack(query: string, limit = 10) {
   const url = "https://open.spotify.com/search/" + encodeURIComponent(query);
@@ -14,9 +14,9 @@ async function searchTrack(query: string, limit = 10) {
       '{"persistedQuery":{"version":1,"sha256Hash":"1d3a8f81abf4f33f49d1e389ed0956761af669eedb62a050c6c7bce5c66070bb"}}',
   };
   const headers = { authorization: "Bearer " + accessToken };
-  const response = await axios.get<ISearchTrackResponse>(apiUrl, { params, headers });
+  const response = await axios.get<SearchResponse>(apiUrl, { params, headers });
 
-  return response.data.data.searchV2.tracksV2.items;
+  return response.data.data.searchV2.tracksV2;
 }
 
 export default searchTrack;
