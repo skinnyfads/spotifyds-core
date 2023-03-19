@@ -1,35 +1,20 @@
 import axios from "axios";
-import cheerio from "cheerio";
+import getAccessToken from "./getAccessToken.js";
+import { PlaylistResponse } from "./interfaces/playlist.js";
 
-interface IParseTrack {
-  name: string;
-  artist: string[];
-}
+async function getTracksFromPlaylist(url: string, offset = 0, limit = 25) {
+  const accessToken = await getAccessToken(url);
+  const playlistId = new URL(url).pathname.split("/")[2];
+  const apiUrl = "https://api-partner.spotify.com/pathfinder/v1/query";
+  const params = {
+    operationName: "fetchPlaylist",
+    variables: `{"uri":"spotify:playlist:${playlistId}","offset":${offset},"limit":${limit}}`,
+    extensions: `{"persistedQuery":{"version":1,"sha256Hash":"e578eda4f77aae54294a48eac85e2a42ddb203faf6ea12b3fddaec5aa32918a3"}}`,
+  };
+  const headers = { authorization: "Bearer " + accessToken };
+  const response = await axios.get<PlaylistResponse>(apiUrl, { params, headers });
 
-async function getTracksFromPlaylist(url: string) {
-  const response = await axios.get(url);
-  const $ = cheerio.load(response.data);
-  const trackRow = $("div[data-testid = 'track-row']");
-  const tracks: IParseTrack[] = [];
-
-  trackRow.each((index, element) => {
-    const $track = cheerio.load(element);
-
-    $track("a").each(function () {
-      const href = $(this).attr("href") || "";
-      tracks[index] = tracks[index] || { name: "", artist: [] };
-
-      if (href.includes("track/")) {
-        const trackName = $(this).text();
-        tracks[index].name = trackName;
-      } else if (href.includes("artist/")) {
-        const artistName = $(this).text();
-        tracks[index].artist.push(artistName);
-      }
-    });
-  });
-
-  return tracks;
+  return response.data.data.playlistV2.content.items;
 }
 
 export default getTracksFromPlaylist;
