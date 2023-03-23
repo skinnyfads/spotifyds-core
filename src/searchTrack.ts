@@ -5,7 +5,7 @@ import { SearchResponse } from "./interfaces/search.js";
 async function searchTrack(query: string, limit = 10) {
   const url = "https://open.spotify.com/search/" + encodeURIComponent(query);
   const accessToken = await getAccessToken(url);
-  query = query.split(" ").join("+");
+  query = query.replace(/\s/g, "+");
   const apiUrl = "https://api-partner.spotify.com/pathfinder/v1/query";
   const params = {
     operationName: "searchDesktop",
