@@ -8,7 +8,7 @@ type ProgressCallback = (chunkLength: number, downloaded: number, total: number)
 async function downloadTrack(track: Track, progressCallback?: ProgressCallback): Promise<string> {
   return new Promise(async (resolve) => {
     const dir = process.cwd() + "/" + "tracks";
-    const fileName = track.name;
+    const fileName = track.name.replace(/\//g, "\u2215");
 
     if (!existsSync(dir)) {
       mkdirSync(dir);
