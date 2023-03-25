@@ -7,7 +7,7 @@ At this time you only be able to download tracks from Spotify Playlist
 ### searchTrack
 
 ```ts
-import spotifyds from "spotyfids-core";
+import spotifyds from "spotifyds-core";
 
 (async () => {
   const result = await spotifyds.searchTrack("she is gonna leave you", 5);
@@ -40,7 +40,7 @@ for await (const tracks of getPlaylistTracks(url, { limit: 10 })) {
 ### downloadTrack
 
 ```ts
-import spotifyds from "spotyfids-core";
+import spotifyds from "spotifyds-core";
 
 (async () => {
   const results = await spotifyds.searchTrack("she is gonna leave you");
@@ -55,7 +55,7 @@ Download Track With Progress
 
 ```ts
 import readline from "node:readline";
-import spotifyds from "spotyfids-core";
+import spotifyds from "spotifyds-core";
 
 function progressCallback(chunkLength, downloaded, total) {
   const percent = downloaded / total;
