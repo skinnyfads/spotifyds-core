@@ -12,7 +12,7 @@ interface ITrackInfo {
 }
 
 async function getTrackInfo(name: string, artist: string[]) {
-  const query = name + artist.join(" ");
+  const query = name + " - " + artist.join(", ");
   const searchResult = await ytMusic.searchMusics(query);
   const { thumbnailUrl, duration, youtubeId } = searchResult[0];
   const result: ITrackInfo = { name, artist, thumbnailUrl, duration, youtubeId };
