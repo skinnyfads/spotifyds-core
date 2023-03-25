@@ -1,6 +1,11 @@
 {
   "name": "spotifyds-core",
   "description": "A simple Spotify Music Downloader",
+  "keywords": [
+    "spotify",
+    "music",
+    "playlist"
+  ],
   "version": "4.0.1",
   "type": "module",
   "main": "dist/main.js",
