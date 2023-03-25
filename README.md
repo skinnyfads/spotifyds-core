@@ -57,6 +57,8 @@ Download Track With Progress
 import readline from "node:readline";
 import spotifyds from "spotifyds-core";
 
+const startTime = Date.now();
+
 function progressCallback(chunkLength, downloaded, total) {
   const percent = downloaded / total;
   const downloadedMinutes = (Date.now() - startTime) / 1000 / 60;
