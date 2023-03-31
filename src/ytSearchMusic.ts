@@ -10,13 +10,14 @@ function parseDuration(duration: string) {
 }
 function parseMusicInfo(matched: MusicCardShelfRenderer) {
   const title = matched.title.runs[0].text;
-  const thumbnails = matched.thumbnail.musicThumbnailRenderer.thumbnail.thumbnails;
+  const thumbnailUrl = matched.thumbnail.musicThumbnailRenderer.thumbnail.thumbnails[0].url;
   const youtubeId = matched.title.runs[0].navigationEndpoint.watchEndpoint.videoId;
   const artist = matched.subtitle.runs[2].text;
-  const durationString = matched.subtitle.runs[6].text;
-  const duration = parseDuration(durationString);
+  const durationLabel = matched.subtitle.runs[6].text;
+  const durationTotalSeconds = parseDuration(durationLabel);
+  const duration = {label: durationLabel, totalSeconds: durationTotalSeconds}
 
-  return { title, thumbnails, youtubeId, artist, duration };
+  return { title, thumbnailUrl, youtubeId, artist, duration };
 }
 async function ytSearchMusic(query: string) {
   const baseUrl = "https://music.youtube.com/youtubei/v1/search";
@@ -42,9 +43,9 @@ async function ytSearchMusic(query: string) {
     response.data.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents!;
   const musicCardShelfRenderer: MusicCardShelfRenderer = searchResult.find((result) => result.musicCardShelfRenderer)!
     .musicCardShelfRenderer!;
-const musicInfo = parseMusicInfo(musicCardShelfRenderer);
+  const musicInfo = parseMusicInfo(musicCardShelfRenderer);
 
-return musicInfo
+  return musicInfo;
 }
 
 export default ytSearchMusic;
