@@ -1,4 +1,4 @@
-import ytSearchMusic from "./ytSearchMusic.js";
+import ytMusicSearch from "./ytMusicSearch.js";
 
 interface ITrackInfo {
   name: string;
@@ -13,7 +13,7 @@ interface ITrackInfo {
 
 async function getTrackInfo(name: string, artist: string[]) {
   const query = name + " - " + artist.join(", ");
-  const { thumbnailUrl, duration, youtubeId } = await ytSearchMusic(query);
+  const { thumbnailUrl, duration, youtubeId } = await ytMusicSearch(query);
   const result: ITrackInfo = { name, artist, thumbnailUrl, duration, youtubeId };
 
   return result;

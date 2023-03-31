@@ -19,7 +19,7 @@ function parseMusicInfo(matched: MusicCardShelfRenderer) {
 
   return { title, thumbnailUrl, youtubeId, artist, duration };
 }
-async function ytSearchMusic(query: string) {
+async function ytMusicSearch(query: string) {
   const baseUrl = "https://music.youtube.com/youtubei/v1/search";
   const requestData = {
     query,
@@ -41,11 +41,10 @@ async function ytSearchMusic(query: string) {
   const response = await axios.post<YtSearchResponse>(baseUrl, requestData, { headers, params });
   const searchResult =
     response.data.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents;
-  const musicCardShelfRenderer: MusicCardShelfRenderer = searchResult.find((result) => result.musicCardShelfRenderer)!
-    .musicCardShelfRenderer!;
-  const musicInfo = parseMusicInfo(musicCardShelfRenderer);
+  const matched = searchResult[0].musicCardShelfRenderer;
+  const musicInfo = parseMusicInfo(matched);
 
   return musicInfo;
 }
 
-export default ytSearchMusic;
+export default ytMusicSearch;
