@@ -40,7 +40,7 @@ async function ytSearchMusic(query: string) {
   };
   const response = await axios.post<YtSearchResponse>(baseUrl, requestData, { headers, params });
   const searchResult =
-    response.data.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents!;
+    response.data.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents;
   const musicCardShelfRenderer: MusicCardShelfRenderer = searchResult.find((result) => result.musicCardShelfRenderer)!
     .musicCardShelfRenderer!;
   const musicInfo = parseMusicInfo(musicCardShelfRenderer);
