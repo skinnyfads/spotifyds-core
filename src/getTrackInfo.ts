@@ -1,4 +1,4 @@
-import ytSearchMusic from "./ytSearchMusic";
+import ytSearchMusic from "./ytSearchMusic.js";
 
 interface ITrackInfo {
   name: string;
