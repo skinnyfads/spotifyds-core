@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MusicCardShelfRenderer, YtSearchResponse } from "./interfaces/ytSearch";
+import { MusicCardShelfRenderer, YtSearchResponse } from "./interfaces/ytSearch.js";
 
 function parseDuration(duration: string) {
   const time = duration.split(":").map(Number);
