@@ -1,6 +1,7 @@
 src/
 tracks/
 node_modules/
+.github/
 tests/
 jest.config.ts
 .env
