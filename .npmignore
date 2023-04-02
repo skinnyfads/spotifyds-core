@@ -1,3 +1,6 @@
 src/
+tracks/
 node_modules/
+tests/
+jest.config.ts
 .env
