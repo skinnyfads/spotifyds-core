@@ -6,7 +6,7 @@
     "music",
     "playlist"
   ],
-  "version": "4.0.2",
+  "version": "4.1.0",
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
