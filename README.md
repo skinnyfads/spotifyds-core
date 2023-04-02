@@ -43,7 +43,7 @@ for await (const tracks of getPlaylistTracks(url, { limit: 10 })) {
 import spotifyds from "spotifyds-core";
 
 (async () => {
-  const results = await spotifyds.searchTrack("she is gonna leave you");
+  const result = await spotifyds.searchTrack("she is gonna leave you");
   const track = result.items[0].item.data;
   const filePath = await spotifyds.downloadTrack(track);
 
@@ -74,7 +74,7 @@ function progressCallback(chunkLength, downloaded, total) {
   readline.moveCursor(process.stdout, 0, -3);
 }
 (async () => {
-  const results = await spotifyds.searchTrack("she is gonna leave you");
+  const result = await spotifyds.searchTrack("she is gonna leave you");
   const track = result.items[0].item.data;
   const filePath = await spotifyds.downloadTrack(track, progressCallback);
 
