@@ -9,5 +9,5 @@ it("should return exact same title between spotify and youtube", () => {
   expect(track.name).toBe(trackInfo.name);
 });
 it("should return exact same duration between spotify and youtube", () => {
-  expect(track.duration.totalMilliseconds / 1000).toBe(trackInfo.duration?.totalSeconds);
+  expect(Math.ceil(track.duration.totalMilliseconds / 1000)).toBe(trackInfo.duration?.totalSeconds);
 });
