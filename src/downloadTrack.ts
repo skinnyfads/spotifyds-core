@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, createWriteStream } from "node:fs";
-import ytdl from "ytdl-core";
+import ytdl from "@distube/ytdl-core";
 import getTrackInfo from "./getTrackInfo.js";
 import { Track } from "./interfaces/index.js";
 
