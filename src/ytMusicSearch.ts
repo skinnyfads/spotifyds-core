@@ -13,7 +13,8 @@ function parseMusicInfo(matched: MusicCardShelfRenderer) {
   const thumbnailUrl = matched.thumbnail.musicThumbnailRenderer.thumbnail.thumbnails[0].url;
   const youtubeId = matched.title.runs[0].navigationEndpoint.watchEndpoint.videoId;
   const artist = matched.subtitle.runs[2].text;
-  const durationLabel = matched.subtitle.runs[6].text;
+  const matchedDuration = matched.subtitle.runs[6] || matched.subtitle.runs[4];
+  const durationLabel = matchedDuration.text;
   const durationTotalSeconds = parseDuration(durationLabel);
   const duration = { label: durationLabel, totalSeconds: durationTotalSeconds };
 
