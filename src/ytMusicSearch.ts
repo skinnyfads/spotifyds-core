@@ -26,7 +26,7 @@ async function ytMusicSearch(query: string) {
     context: {
       client: {
         clientName: "WEB_REMIX",
-        clientVersion: "0.1",
+        clientVersion: "1.20221219.01.00",
       },
     },
   };
